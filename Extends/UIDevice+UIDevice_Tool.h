@@ -23,7 +23,7 @@
 
 +(BOOL) isUniversalApplication;
 +(BOOL) isIPAD;
-+(BOOL) isOrientationPortrait;
++(BOOL) isOrientationPortrait NS_EXTENSION_UNAVAILABLE_IOS("");
 
 +(BOOL) isIphoneX;
 +(BOOL) isIphone6Plus;

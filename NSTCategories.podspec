@@ -15,4 +15,5 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit', 'Security'
   s.libraries = 'z'
+  s.static_framework = true
 end
