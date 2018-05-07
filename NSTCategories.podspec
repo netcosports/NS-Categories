@@ -16,4 +16,5 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit', 'Security'
   s.libraries = 'z'
   s.static_framework = true
+  s.user_target_xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 end
