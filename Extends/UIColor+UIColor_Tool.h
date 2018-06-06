@@ -10,14 +10,11 @@
 
 @interface UIColor (UIColor_Tool)
 
-#pragma mark Class methods
-+ (UIColor *)colorWithRGBString:(NSString*)rgbValue alpha:(float)alpha;
-+ (UIColor *)colorWithARGBString:(NSString *)strARGB;
-+ (UIColor *)colorWithRGB:(int)rgbValue alpha:(float)alpha;
-+ (UIColor *)colorWithRGB:(int)rgbValue;
++(UIColor*)colorWithRGBString:(NSString*)rgbValue alpha:(float)alpha;
++(UIColor*)colorWithARGBString:(NSString *)strARGB;
++(UIColor*)colorWithRGB:(int)rgbValue alpha:(float)alpha;
++(UIColor*)colorWithRGB:(int)rgbValue ;
 
-#pragma mark Instance methods
-- (BOOL)isLightColor;
 - (NSString *)toRGBString;
 - (UIColor *)colorByDarkeningColor;
 - (UIColor *)colorByDarkeningColorWithCoefficient:(CGFloat)coefficient;

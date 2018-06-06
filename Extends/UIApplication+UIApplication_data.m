@@ -11,9 +11,10 @@
 
 @implementation UIApplication (UIApplication_data)
 
-+(NSString *)getItunesUrlWithAppleID:(NSString *)appleID andStoreLanguage:(NSString *)storeLanguage
++(NSString *)getItunesUrlWithAppleID:(NSString *)appleID
 {
-    return [NSString stringWithFormat:@"http://itunes.apple.com/%@/app/id%@?mt=8", storeLanguage, appleID];
+    NSString *storeLang = [[UIDevice getDeviceShortLanguage] isEqualToString:@"fr"] ? @"fr" : @"en";
+    return [NSString stringWithFormat:@"http://itunes.apple.com/%@/app/id%@?mt=8", storeLang, appleID];
 }
 
 @end

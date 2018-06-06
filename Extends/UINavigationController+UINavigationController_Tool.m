@@ -11,7 +11,7 @@
 
 @implementation UINavigationController (UINavigationController_Tool)
 
--(NSArray *)popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated
+-(NSArray *) popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated
 {
     NSMutableArray *arrayOfPopViewControllers = [NSMutableArray new];
     
@@ -30,7 +30,7 @@
     return nil;
 }
 
--(UIViewController *)rootViewController
+-(UIViewController *) rootViewController
 {
     return self.viewControllers.firstObject;
 }

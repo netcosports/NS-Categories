@@ -12,7 +12,7 @@
 @implementation UIColor (UIColor_Tool)
 
 #pragma mark - Class methods
-+(UIColor *)colorWithRGBString:(NSString*)rgbValue alpha:(float)alpha
++(UIColor*)colorWithRGBString:(NSString*)rgbValue alpha:(float)alpha
 {
     NSString *colorStr;
     if ([rgbValue hasSubstring:@"#"])
@@ -31,7 +31,7 @@
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
-+(UIColor *)colorWithARGBString:(NSString *)strARGB
++(UIColor*)colorWithARGBString:(NSString *)strARGB
 {
     if ([strARGB hasSubstring:@"#"])
         strARGB = [strARGB stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -50,24 +50,17 @@
     return [UIColor colorWithRGBString:strColor alpha:alpha];
 }
 
-+(UIColor *)colorWithRGB:(int)rgbValue alpha:(float)alpha
++(UIColor*)colorWithRGB:(int)rgbValue alpha:(float)alpha
 {
 	return [UIColor  colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0  blue:((float)(rgbValue & 0xFF))/255.0 alpha:alpha];
 }
 
-+(UIColor *)colorWithRGB:(int)rgbValue
++(UIColor*)colorWithRGB:(int)rgbValue
 {
 	return [UIColor colorWithRGB:rgbValue alpha:1.0];
 }
 
 #pragma mark - Instance methods
-- (BOOL)isLightColor
-{
-    CGFloat white = 0;
-    [self getWhite:&white alpha:nil];
-    return (white > 0.5);
-}
-
 - (NSString *)toRGBString
 {
     const CGFloat *components = CGColorGetComponents(self.CGColor);

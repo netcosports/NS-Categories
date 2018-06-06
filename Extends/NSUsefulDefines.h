@@ -26,6 +26,6 @@
 
 #pragma mark - Conditions
 #define EXISTS(object, class) (object && [object isKindOfClass:class])
-#define MEMBEROF(object, class) (object && [object isMemberOfClass:class])
+#define DELEGATE_IMPLEMENTATION(delegate, selector) (delegate && [delegate respondsToSelector:selector])
 
 #endif

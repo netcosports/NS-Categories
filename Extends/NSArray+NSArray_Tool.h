@@ -70,7 +70,7 @@ typedef enum
 -(NSArray *)reversedArray;
 
 /**
- *  It creates a string appending every element of the array with a separator between each.
+ *  It creates a string appending every elements of the array with a separator between each.
  *
  *  @param separator Separator betweend each elements in the string.
  *

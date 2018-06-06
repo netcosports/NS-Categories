@@ -10,28 +10,21 @@
 
 @interface UIImage (UIImage_Tool)
 
-#pragma mark - Class methods
-+ (UIImage *)loadImageFromFile:(NSString *)fileName withTTL:(NSUInteger)ttl;
+-(UIImage *)crop:(CGRect)rect;
+-(UIImage *)boxblurImageWithBlur:(CGFloat)blur; // 0.0 < 1.0
+- (UIImage *) normalize ;
++ (void) applyStackBlurToBuffer:(UInt8*)targetBuffer width:(const int)w height:(const int)h withRadius:(NSUInteger)inradius;
 
-#pragma mark - Instance methods
-- (UIImage *)imageRounded;
-- (UIImage *)imageScaledToSize:(CGSize)scaledSize;
-- (UIImage *)imageColorizeWithColor:(UIColor *)theColor inArea:(CGRect)areaColorized;
++ (UIImage *)imageWithImage:(UIImage *)sourceImage scaledToWidth:(float)width;
++ (UIImage *)imageWithImage:(UIImage *)sourceImage scaledRelativeToSize:(CGSize)size;
++ (UIImage *)imageWithImage:(UIImage *)image withSize:(CGSize)newSize;
++ (UIImage *)resizableImage:(NSString *)imageName withCapInsets:(UIEdgeInsets)capInsets;
++ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor;
++ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor verticalOffSet:(int)verticalOffSet;
++ (UIImage *)resizableUIImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets;
+
++ (UIImage*)loadImageFromFile:(NSString *)fileName withTTL:(NSUInteger)ttl;
+- (void)saveImageInFile:(NSString *)fileName;
 - (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
-- (UIImage *)imageCroppedToFrame:(CGRect)rect;
-- (UIImage *)imageNormalized;
-
-- (void)saveToFile:(NSString *)fileName;
-
-#pragma mark DEPRECATED
-+ (UIImage *)resizableImage:(NSString *)imageName withCapInsets:(UIEdgeInsets)capInsets DEPRECATED_ATTRIBUTE;
-+ (UIImage *)resizableUIImage:(UIImage *)image withCapInsets:(UIEdgeInsets)capInsets DEPRECATED_ATTRIBUTE;
-+ (void) applyStackBlurToBuffer:(UInt8*)targetBuffer width:(const int)w height:(const int)h withRadius:(NSUInteger)inradius DEPRECATED_ATTRIBUTE;
-+ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor DEPRECATED_ATTRIBUTE;
-+ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor verticalOffSet:(CGFloat)verticalOffSet DEPRECATED_ATTRIBUTE;
-+ (UIImage *)imageWithImage:(UIImage *)sourceImage scaledToWidth:(float)width DEPRECATED_ATTRIBUTE;
-+ (UIImage *)imageWithImage:(UIImage *)sourceImage scaledRelativeToSize:(CGSize)size DEPRECATED_ATTRIBUTE;
-+ (UIImage *)imageWithImage:(UIImage *)image withSize:(CGSize)newSize DEPRECATED_ATTRIBUTE;
-- (UIImage *)boxblurImageWithBlur:(CGFloat)blur DEPRECATED_ATTRIBUTE;
 
 @end

@@ -13,8 +13,8 @@
 /**
  * This method is used to add the _iPhone or _iPad to the Nib name depending on the targeted device.
  * Use this method only if you have both XIBs, otherwise, use initWithNibName:bundle:
- * @param nibNameOrNil the nibName root if different from the class name
- * @param nibBundleOrNil the bundle in which the nib name is, nil by defaut
+ * @param nibNameOrNil, the nibName root if different from the class name
+ * @param nibBundle, the bundle in which the nib name is, nil by defaut
  * @return the inited view controller with the appropriate XIB
  */
 

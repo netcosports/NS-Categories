@@ -17,8 +17,8 @@
 /**
  *  Insert a string into self starting at the given index
  *
- *  @param stringToInsert     The string to insert
- *  @param index              The index where to start the insertion
+ *  @param `stringToInsert' The string to insert
+ *  @param `index' The index where to start the insertion
  *
  *  @return A new instance of NSString representing a new version of self with the inserted string
  */
@@ -27,17 +27,18 @@
 /**
  *  Enumerates the different occurences of a potential substring using a mask as the string comparison option through a block.
  *
- *  @param substring          The string to find
- *  @param mask               The string comparison option to use for matching strings
- *  @param enumerationBlock   The enumeration block called each time an occurence is found. It gives its index.
+ *  @param `substring' The string to find
+ *  @param `options' The string comparison option to use for matching strings
+ *  @param `enumerationBlock' The enumeration block called each time an occurence is found. It gives its index.
  *
+ *  @return void
  */
 -(void) enumerateOccurencesOfSubstring:(NSString *)substring  options:(NSStringCompareOptions)mask usingBlock:(void(^)(NSUInteger indexOfOccurence, BOOL *stop))enumerationBlock;
 
 /**
  *  Check if parts of self respond to the given regular expression
  *
- *  @param regex              Regular Expression
+ *  @param `regex' Regular Expression
  *
  *  @return Self's signature
  */
@@ -60,48 +61,48 @@
 -(unsigned long)crc32;
 
 /**
- *  Check if self has at least one substring like search (Case sensitive)
+ *  Check if self has at least one substring like `seach' (Case sensitive)
  *
- *  @param search              String to find
+ *  @param `search' String to find
  *
- *  @return Yes is search has been found, NO if not.
+ *  @return Yes is `search' has been found, NO if not.
  */
 -(BOOL) hasSubstring:(NSString *)search;
 
 /**
- *  Check if self has at least one substring like search (Case snsensitive)
+ *  Check if self has at least one substring like `seach' (Case snsensitive)
  *
- *  @param search              String to find
+ *  @param `search' String to find
  *
- *  @return Yes is search has been found, NO if not.
+ *  @return Yes is `search' has been found, NO if not.
  */
 -(BOOL) hasInsensitiveSubString:(NSString *)search;
 
 /**
- *  Check if self has at least one substring like search (Case snsensitive)
+ *  Check if self has at least one substring like `seach' (Case snsensitive)
  *
- *  @param search              String to find
+ *  @param `search' String to find
  *
- *  @return Index of search if is has been found, NSNotFound if not.
+ *  @return Index of `search' if is has been found, NSNotFound if not.
  */
 -(NSInteger) indexOfSubString:(NSString*) search;
 
 /**
  *  Compute the number of occurences of a string in self.
  *
- *  @param search              String to find
+ *  @param `search' String to find
  *
  *  @return number of found occurences.
  */
 -(NSInteger) nbrOccurenceString:(NSString *)search;
 
 /**
- *  Check if self has at least one substring like search (Case snsensitive)
+ *  Check if self has at least one substring like `seach' (Case snsensitive)
  *
- *  @param source              String to find
- *  @param newString           String replacing `source'
+ *  @param `source' String to find
+ *  @param `newstring' String replacing `source'
  *
- *  @return Index of search if is has been found, NSNotFound if not.
+ *  @return Index of `search' if is has been found, NSNotFound if not.
  */
 -(NSString*) strReplace:(NSString*)source by:(NSString*)newString;
 
@@ -122,7 +123,7 @@
 /**
  *  Split string using a separator & put substring into a NSArray
  *
- *  @param seperator Separator used
+ *  @param `seperator' Separator used
  *
  *  @return NSArray containing all substring
  */
@@ -131,9 +132,9 @@
 /**
  *  Check if a string is equal to self
  *
- *  @param string String to compare with
+ *  @param `string' String to compare with
  *
- *  @return YES if string is the same as self.
+ *  @return YES if `string' is the same as self.
  */
 -(BOOL) isNotEqualToString:(NSString*)string;
 
@@ -161,7 +162,7 @@
 /**
  *  Compare two version strings with number(.number)? format
  *
- *  @param version               Version to compare to
+ *  @param version Version to compare to
  *
  *  @return Comparison result.
  */
@@ -182,8 +183,8 @@
 /**
  *  Upgrading the current attribute Font by adding/removing `-Bold' to its fontname on the given range.
  *
- *  @param bold                   BOOL describing wether it has `-Bold' or not.
- *  @param range                  Range of application.
+ *  @param bold  BOOL describing wether it has `-Bold' or not.
+ *  @param range Range of application.
  */
 -(void)setBold:(BOOL)bold range:(NSRange)range;
 
