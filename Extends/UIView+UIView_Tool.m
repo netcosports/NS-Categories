@@ -8,11 +8,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <objc/runtime.h>
+
 #import "UIView+UIView_Tool.h"
 #import "NSObject+NSObject_Xpath.h"
 #import "NSString+NSString_Tool.h"
 #import "NSObject+NSObject_Tool.h"
 #import "UIDevice+UIDevice_Tool.h"
+#import "NSArray+NSArray_Bundle.h"
 #import "NSUsefulDefines.h"
 
 static const char * const kParentViewControllerKey = "kParentViewControllerKey";
@@ -20,6 +22,7 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 
 @implementation UIView (UIView_Tool)
 
+#pragma mark Properties set/get
 - (id)parentViewController
 {
     return objc_getAssociatedObject(self, kParentViewControllerKey);
@@ -38,6 +41,16 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 - (void)setTagObjective:(id)obj
 {
     objc_setAssociatedObject(self, kTagObjectiveKey, obj, OBJC_ASSOCIATION_ASSIGN);
+}
+
+#pragma mark Instance methods
++(instancetype)viewWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    nibBundleOrNil = nibBundleOrNil ? nibBundleOrNil : [NSBundle mainBundle];
+    nibNameOrNil = nibNameOrNil ? nibNameOrNil : NSStringFromClass([self class]);
+    
+    id view = [[nibBundleOrNil loadNibNamed:nibNameOrNil owner:nil options:nil] getObjectsType:[self class]];
+    return view;
 }
 
 -(void)bouingAppear:(BOOL)appear oncomplete:(void (^)(void))oncomplete{
@@ -189,6 +202,62 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
     return self;
 }
 
+-(UIView*)insertSubviewToBonce:(UIView*)view below:(UIView*)belowView autoSizing:(BOOL)autosize {
+    if (autosize)
+        [view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
+    view.frame = self.bounds;
+    [self insertSubview:view belowSubview:belowView];
+    return view;
+}
+
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view below:(UIView*)belowView {
+    return [self insertSubviewToBonceWithConstraint:view options:0 below:belowView];
+}
+
+-(UIView*)insertSubviewToBonceWithConstraintWithoutLanguageDirection:(UIView*)view below:(UIView*)belowView {
+    return [self insertSubviewToBonceWithConstraint:view options:NSLayoutFormatDirectionLeftToRight below:belowView];
+}
+
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view options:(NSLayoutFormatOptions)options below:(UIView*)belowView {
+    if (!view || !belowView)
+        return self;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self insertSubview:view belowSubview:belowView];
+    id posx = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|" options:options metrics:nil views:NSDictionaryOfVariableBindings(view)];
+    id posy = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)];
+    [self addConstraints:posx];
+    [self addConstraints:posy];
+    return self;
+}
+
+-(UIView*)insertSubviewToBonce:(UIView*)view above:(UIView*)aboveView autoSizing:(BOOL)autosize {
+    if (autosize)
+        [view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
+    view.frame = self.bounds;
+    [self insertSubview:view aboveSubview:aboveView];
+    return view;
+}
+
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view above:(UIView*)aboveView {
+    return [self insertSubviewToBonceWithConstraint:view options:0 above:aboveView];
+}
+
+-(UIView*)insertSubviewToBonceWithConstraintWithoutLanguageDirection:(UIView*)view above:(UIView*)aboveView {
+    return [self insertSubviewToBonceWithConstraint:view options:NSLayoutFormatDirectionLeftToRight above:aboveView];
+}
+
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view options:(NSLayoutFormatOptions)options above:(UIView*)aboveView {
+    if (!view || !aboveView)
+        return self;
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self insertSubview:view aboveSubview:aboveView];
+    id posx = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|" options:options metrics:nil views:NSDictionaryOfVariableBindings(view)];
+    id posy = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(view)];
+    [self addConstraints:posx];
+    [self addConstraints:posy];
+    return self;
+}
+
 -(UIView*)addSubviewToBonce:(UIView*)view autoSizing:(BOOL)autosize{
 	if (autosize)
 		[view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
@@ -207,6 +276,88 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 	[self addSubview:view];
 	return view;
 }
+
+-(void)addBasicConstraintsFromFrame:(CGRect)frame onView:(UIView *)subView
+{
+    NSLayoutConstraint *constraintTop = [NSLayoutConstraint constraintWithItem:subView
+                                                                     attribute:NSLayoutAttributeTop
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:self
+                                                                     attribute:NSLayoutAttributeTop
+                                                                    multiplier:1.0
+                                                                      constant:frame.origin.y];
+    
+    NSLayoutConstraint *constraintLeading = [NSLayoutConstraint constraintWithItem:subView
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeLeading
+                                                                        multiplier:1.0
+                                                                          constant:frame.origin.x];
+    
+    NSLayoutConstraint *constraintWidth = [NSLayoutConstraint constraintWithItem:subView
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:nil
+                                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                                      multiplier:1.0
+                                                                        constant:frame.size.width];
+    
+    NSLayoutConstraint *constraintHeight = [NSLayoutConstraint constraintWithItem:subView
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:frame.size.height];
+
+    [self addConstraint:constraintTop];
+    [self addConstraint:constraintLeading];
+    [self addConstraint:constraintWidth];
+    [self addConstraint:constraintHeight];
+}
+
+-(NSLayoutConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute onView:(UIView *)firstView toView:(UIView *)secondView andConstant:(CGFloat)constant
+{
+    NSLayoutConstraint *customConstraint = [NSLayoutConstraint constraintWithItem:firstView
+                                                                        attribute:layoutAttribute
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:secondView
+                                                                        attribute:layoutAttribute
+                                                                       multiplier:1.0
+                                                                         constant:constant];
+    [self addConstraint:customConstraint];
+    return customConstraint;
+}
+
+-(NSLayoutConstraint *)addConstraintOnView:(UIView *)firstView withLayoutAttribute:(NSLayoutAttribute)firstLayoutAttribute toView:(UIView *)secondView withLayoutAttribute:(NSLayoutAttribute)secondLayoutAttribute andConstant:(CGFloat)constant
+{
+    NSLayoutConstraint *customConstraint = [NSLayoutConstraint constraintWithItem:firstView
+                                                                        attribute:firstLayoutAttribute
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:secondView
+                                                                        attribute:secondLayoutAttribute
+                                                                       multiplier:1.0
+                                                                         constant:constant];
+    [self addConstraint:customConstraint];
+    return customConstraint;
+}
+
+-(NSLayoutConstraint *)addConstraintEqualWidthOnView:(UIView *)firstView toView:(UIView *)secondView
+{
+    return [self addConstraintWithLayoutAttribute:NSLayoutAttributeWidth onView:firstView toView:secondView andConstant:0];
+}
+
+-(NSLayoutConstraint *)addConstraintEqualHeightOnView:(UIView *)firstView toView:(UIView *)secondView
+{
+    return [self addConstraintWithLayoutAttribute:NSLayoutAttributeHeight onView:firstView toView:secondView andConstant:0];
+}
+
+-(NSLayoutConstraint *)addConstraintHorizontalSpacingBetween:(UIView *)firstView andView:(UIView *)secondView withConstant:(CGFloat)constant
+{
+    return [self addConstraintOnView:firstView withLayoutAttribute:NSLayoutAttributeLeading toView:secondView withLayoutAttribute:NSLayoutAttributeTrailing andConstant:constant];
+}
+
 -(void)setCenterJAPaddings:(id)paddings{
 	[self renderRelativeSubviewsSetMyContentScroll:NO paddings:paddings];
 	CGFloat w = 0;
@@ -414,7 +565,6 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 						[l_frame insertObject:[NSValue valueWithCGRect:r] atIndex:0];
                         
 						// pas dans la merde
-						//NSLog(@"cas non géré pour le moment");
 					}
 					
 				}
@@ -443,7 +593,6 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 		
 		hall = prev.size.height + prev.origin.y > hall ? prev.size.height + prev.origin.y  : hall;
 		[all removeObjectAtIndex:0];
-		//NSLog(@"tab frame:\n%@",[l_frame description]);
 	}
 	
 	if (setContent && [self.superview isKindOfClass:[UIScrollView class]]){
@@ -545,10 +694,7 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 						r = CGRectMake(xo, yo, self.frame.size.width -xo, 20);
 						//[l_frame addObject:[NSValue valueWithCGRect:r]];
 						[l_frame insertObject:[NSValue valueWithCGRect:r] atIndex:0];
-                        
-						// pas dans la merde
-						//NSLog(@"cas non géré pour le moment");
-					}
+                    }
 					
 				}
 			}
@@ -576,7 +722,6 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 		
 		hall = prev.size.height + prev.origin.y > hall ? prev.size.height + prev.origin.y  : hall;
 		[all removeObjectAtIndex:0];
-		//NSLog(@"tab frame:\n%@",[l_frame description]);
 	}
 	
 	if (setContent && [self isKindOfClass:[UIScrollView class]]){
@@ -624,7 +769,6 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 }
 -(NSInteger)setId:(NSString*)idview{
     if([idview isEqualToString:@""])
-        NSLog(@"No ID VIEW");
     self.tag = [idview crc32];
     return self.tag;
 }
@@ -793,5 +937,54 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
 {
     return [UIView viewWithFrame:frame andGradients:@[startColor, endColor] onFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 }
+
+- (void)shakeView:(void (^)())completion{
+    [self shakeViewWithIteration:0 direction:1 completion:completion];
+}
+
+- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)())completion{
+    const NSInteger MAX_SHAKES = 6;
+    const CGFloat SHAKE_DURATION = 0.05;
+    const CGFloat SHAKE_TRANSFORM = 10.0;
+    
+    [UIView animateWithDuration:SHAKE_DURATION
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.transform = iterations >= MAX_SHAKES ? CGAffineTransformIdentity : CGAffineTransformMakeTranslation(SHAKE_TRANSFORM * direction, 0);
+                     } completion:^(BOOL finished) {
+                         if (finished){
+                             if (iterations >= MAX_SHAKES){
+                                 if (completion){
+                                     completion();
+                                 }
+                             }
+                             else{
+                                 [self shakeViewWithIteration:(iterations + 1) direction:(direction * -1) completion:completion];
+                             }
+                         }
+                     }];
+}
+
+- (void)borderViewAnimation{
+    [self borderViewAnimation:0.5 fromColor:[UIColor clearColor] toColor:[UIColor redColor]];
+}
+
+- (void)borderViewAnimation:(CGFloat)duration fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor{
+    [self.layer setBorderWidth:1.0];
+    
+    CABasicAnimation *color = [CABasicAnimation animationWithKeyPath:@"borderColor"];
+    color.fromValue = (id)fromColor.CGColor;
+    color.toValue   = (id)toColor.CGColor;
+    self.layer.borderColor = toColor.CGColor;
+    
+    CAAnimationGroup *both = [CAAnimationGroup animation];
+    both.duration   = duration;
+    both.animations = @[color];
+    both.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    [self.layer addAnimation:both forKey:@"UIView_Tool|borderViewAnimation"];
+}
+
 
 @end

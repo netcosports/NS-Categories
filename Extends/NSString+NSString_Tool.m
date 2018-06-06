@@ -124,17 +124,8 @@
 
 -(NSInteger)nbrOccurenceString:(NSString *)parse
 {
-	int numberOfChar = -1;
-	NSString *res = nil;
-	NSScanner *mainScanner = [NSScanner scannerWithString:self];
-	while (![mainScanner isAtEnd]) {
-		[mainScanner scanUpToString:parse intoString:&res];
-		numberOfChar++;
-		[mainScanner scanString:parse intoString:nil];
-	}
-	if ([self isEqualToString:[NSString stringWithFormat:@"%@%@", res, parse]])
-		numberOfChar++;
-	return numberOfChar;
+    NSInteger strCount = [self length] - [[self stringByReplacingOccurrencesOfString:parse withString:@""] length];
+    return strCount / [parse length];
 }
 
 -(unsigned long)crc32

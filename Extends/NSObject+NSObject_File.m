@@ -159,7 +159,7 @@ static NSString *NSObject_File_application_document_folder_path = nil;
 
 +(void)emptyContentOfFilePath:(NSString *)filePath
 {
-    [NSKeyedArchiver archiveRootObject:nil toFile:filePath];
+    [NSKeyedArchiver archiveRootObject:@"" toFile:filePath];
 }
 
 #pragma mark -Document/

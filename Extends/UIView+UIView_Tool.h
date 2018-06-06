@@ -16,10 +16,18 @@ static NSString *kUIViewGradientColorIterations = @"kUIViewGradientColorIteratio
 @property (nonatomic, weak) UIViewController *parentViewController;
 @property (nonatomic, weak) id tagObjective;
 
++(instancetype)viewWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+
 -(void)bouingAppear:(BOOL)appear oncomplete:(void (^)(void))oncomplete;
 
 -(void)zoomInAppear:(void (^)(void))oncomplete;
 -(void)zoomInAppearWithAlphaEffect:(BOOL)isAlphaEffect completion:(void (^)(void))oncomplete;
+
+- (void)shakeView:(void (^)())completion;
+- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)())completion;
+
+- (void)borderViewAnimation;
+- (void)borderViewAnimation:(CGFloat)duration fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor;
 
 -(void)highlight:(void (^)(void))oncomplete;
 -(UIView*)addSubviewToBonce:(UIView*)view autoSizing:(BOOL)autosize;
@@ -29,6 +37,24 @@ static NSString *kUIViewGradientColorIterations = @"kUIViewGradientColorIteratio
 -(UIView*)addSubviewToBonceWithConstraint:(UIView*)view;
 -(UIView*)addSubviewToBonceWithConstraintWithoutLanguageDirection:(UIView*)view;
 -(UIView*)addSubviewToBonceWithConstraint:(UIView*)view options:(NSLayoutFormatOptions)options;
+
+-(UIView*)insertSubviewToBonce:(UIView*)view below:(UIView*)belowView autoSizing:(BOOL)autosize;
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view below:(UIView*)belowView;
+-(UIView*)insertSubviewToBonceWithConstraintWithoutLanguageDirection:(UIView*)view below:(UIView*)belowView;
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view options:(NSLayoutFormatOptions)options below:(UIView*)belowView;
+
+-(UIView*)insertSubviewToBonce:(UIView*)view above:(UIView*)aboveView autoSizing:(BOOL)autosize;
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view above:(UIView*)aboveView;
+-(UIView*)insertSubviewToBonceWithConstraintWithoutLanguageDirection:(UIView*)view above:(UIView*)aboveView;
+-(UIView*)insertSubviewToBonceWithConstraint:(UIView*)view options:(NSLayoutFormatOptions)options above:(UIView*)aboveView;
+
+-(void)addBasicConstraintsFromFrame:(CGRect)frame onView:(UIView *)subView;
+-(NSLayoutConstraint *)addConstraintWithLayoutAttribute:(NSLayoutAttribute)layoutAttribute onView:(UIView *)firstView toView:(UIView *)secondView andConstant:(CGFloat)constant;
+-(NSLayoutConstraint *)addConstraintOnView:(UIView *)firstView withLayoutAttribute:(NSLayoutAttribute)firstLayoutAttribute toView:(UIView *)secondView withLayoutAttribute:(NSLayoutAttribute)secondLayoutAttribute andConstant:(CGFloat)constant;
+
+-(NSLayoutConstraint *)addConstraintEqualWidthOnView:(UIView *)firstView toView:(UIView *)secondView;
+-(NSLayoutConstraint *)addConstraintEqualHeightOnView:(UIView *)firstView toView:(UIView *)secondView;
+-(NSLayoutConstraint *)addConstraintHorizontalSpacingBetween:(UIView *)firstView andView:(UIView *)secondView withConstant:(CGFloat)constant;
 
 -(void)setCenterJAPaddings:(id)paddings;
 -(void)setCenterJA;

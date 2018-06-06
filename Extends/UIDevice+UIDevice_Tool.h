@@ -16,26 +16,29 @@
 
 @interface UIDevice (UIDevice_Tool)
 
-- (NSString *) uniqueGlobalDeviceIdentifier;
-- (NSString *) getDeviceType;
+-(NSString *) uniqueGlobalDeviceIdentifier;
+-(NSString *) getDeviceType;
 
-+(BOOL)     isUniversalApplication;
-+(BOOL)     isIPAD;
-+(BOOL)     isOrientationPortrait;
-+(BOOL)     isIphoneX;
-+(BOOL)     isIphone6Plus;
-+(BOOL)     isIphone6;
-+(BOOL)     isIphone5;
-+(BOOL)     isIphone4;
-+(BOOL)     isRetina;
++(NSString *) getCarrierName;
 
-+(int)      getVerionsiOS;
-+(CGRect)   getScreenFrame;
++(BOOL) isUniversalApplication;
++(BOOL) isIPAD;
++(BOOL) isOrientationPortrait NS_EXTENSION_UNAVAILABLE_IOS("");
 
-+(NSString*)getDeviceCountry;
-+(NSString*)getDeviceFullLanguage;
-+(NSString*)getDeviceShortLanguage;
++(BOOL) isIphoneX;
++(BOOL) isIphone6Plus;
++(BOOL) isIphone6;
++(BOOL) isIphone5;
++(BOOL) isIphone4;
++(BOOL) isRetina;
 
-+(NSString*)getDeviceInfoInHtml;;
++(int) getVerionsiOS;
++(CGRect) getScreenFrame;
+
++(NSString *) getDeviceCountry;
++(NSString *) getDeviceFullLanguage;
++(NSString *) getDeviceShortLanguage;
+
++(NSString *) getDeviceInfoInHtml;;
 
 @end
