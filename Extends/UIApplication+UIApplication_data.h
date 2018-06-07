@@ -10,6 +10,6 @@
 
 @interface UIApplication (UIApplication_data)
 
-+(NSString *)getItunesUrlWithAppleID:(NSString *)appleID andStoreLanguage:(NSString *)storeLanguage;
++(NSString *)getItunesUrlWithAppleID:(NSString *)appleID;
 
 @end
