@@ -7,14 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSObject+NSObject_Block.h"
 
 @interface NSObject (NSObject_Tool)
 
-+(BOOL)isMainQueue;
-+(dispatch_queue_t)mainQueueBlock:(void (^)())block;
-+(dispatch_queue_t)backgroundQueueBlock:(void (^)())block;
-
--(void)performWithDelay:(NSTimeInterval)time block:(void(^)())block;
 -(NSDictionary *)serializeToDictionary;
 
 @end

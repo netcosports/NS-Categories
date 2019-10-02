@@ -397,7 +397,7 @@ static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
 // Decode all HTML entities using GTM
 - (NSString *)stringByDecodingHTMLEntities {
 	// gtm_stringByUnescapingFromHTML can return self so create new string ;)
-	return [NSString stringWithString:[self gtm_stringByUnescapingFromHTML]];
+	return [NSString stringWithString:[self nst_gtm_stringByUnescapingFromHTML]];
 }
 
 // Encode all HTML entities using GTM
@@ -591,7 +591,7 @@ static HTMLEscapeMap gAsciiHTMLEscapeMap[] = {
 
 
 
-- (NSString *)gtm_stringByUnescapingFromHTML {
+- (NSString *)nst_gtm_stringByUnescapingFromHTML {
 	NSRange range = NSMakeRange(0, [self length]);
 	NSRange subrange = [self rangeOfString:@"&" options:NSBackwardsSearch range:range];
 	
