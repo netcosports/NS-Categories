@@ -11,5 +11,6 @@
 @interface UIApplication (UIApplication_data)
 
 +(NSString *)getItunesUrlWithAppleID:(NSString *)appleID;
++(NSString *)getItunesUrlWithAppleID:(NSString *)appleID andStoreLanguage:(NSString *)storeLanguage;
 
 @end

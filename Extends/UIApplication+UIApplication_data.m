@@ -14,7 +14,13 @@
 +(NSString *)getItunesUrlWithAppleID:(NSString *)appleID
 {
     NSString *storeLang = [[UIDevice getDeviceShortLanguage] isEqualToString:@"fr"] ? @"fr" : @"en";
-    return [NSString stringWithFormat:@"http://itunes.apple.com/%@/app/id%@?mt=8", storeLang, appleID];
+    return [self getItunesUrlWithAppleID:appleID andStoreLanguage:storeLang];
 }
+
++(NSString *)getItunesUrlWithAppleID:(NSString *)appleID andStoreLanguage:(NSString *)storeLanguage
+{
+    return [NSString stringWithFormat:@"http://itunes.apple.com/%@/app/id%@?mt=8", storeLanguage, appleID];
+}
+
 
 @end
