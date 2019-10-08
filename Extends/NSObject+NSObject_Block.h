@@ -17,7 +17,7 @@
 +(void)backgroundQueue:(dispatch_queue_t)queue withBlock:(void(^)(void))block;
 
 #pragma mark - Block with delay
--(void)performWithDelay:(NSTimeInterval)time block:(void(^)())block;
+-(void)performWithDelay:(NSTimeInterval)time block:(void(^)(void))block;
 
 #pragma mark - Multiple block management
 -(void)performCommonCompletionBlock:(void(^)(NSUInteger numberOfChildBlocksCalled))completionBlock afterNumberOfBlockCalls:(NSUInteger)numberOfCalls;

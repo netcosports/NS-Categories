@@ -133,7 +133,7 @@
     block();
 }
 
--(void)performWithDelay:(NSTimeInterval)time block:(void(^)())block
+-(void)performWithDelay:(NSTimeInterval)time block:(void (^)(void))block
 {
     [self performSelector:@selector(NSObject_Tool:) withObject:[block copy] afterDelay:time];
 }

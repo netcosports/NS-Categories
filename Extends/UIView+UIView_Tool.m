@@ -938,11 +938,11 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
     return [UIView viewWithFrame:frame andGradients:@[startColor, endColor] onFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
 }
 
-- (void)shakeView:(void (^)())completion{
+- (void)shakeView:(void (^)(void))completion{
     [self shakeViewWithIteration:0 direction:1 completion:completion];
 }
 
-- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)())completion{
+- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)(void))completion{
     const NSInteger MAX_SHAKES = 6;
     const CGFloat SHAKE_DURATION = 0.05;
     const CGFloat SHAKE_TRANSFORM = 10.0;

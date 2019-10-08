@@ -23,8 +23,8 @@ static NSString *kUIViewGradientColorIterations = @"kUIViewGradientColorIteratio
 -(void)zoomInAppear:(void (^)(void))oncomplete;
 -(void)zoomInAppearWithAlphaEffect:(BOOL)isAlphaEffect completion:(void (^)(void))oncomplete;
 
-- (void)shakeView:(void (^)())completion;
-- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)())completion;
+- (void)shakeView:(void (^)(void))completion;
+- (void)shakeViewWithIteration:(NSInteger)iterations direction:(NSInteger)direction completion:(void (^)(void))completion;
 
 - (void)borderViewAnimation;
 - (void)borderViewAnimation:(CGFloat)duration fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor;
