@@ -28,4 +28,59 @@
 #define EXISTS(object, class) (object && [object isKindOfClass:class])
 #define MEMBEROF(object, class) (object && [object isMemberOfClass:class])
 
+#if !defined(_countof)
+#if !defined(__cplusplus)
+#define _countof(_Array) (sizeof(_Array) / sizeof(0[_Array]))
+#else
+template <typename _CountofType, size_t _SizeOfArray>
+char (*__countof_helper(_CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
+#define _countof(_Array) sizeof(*__countof_helper(_Array))
+#endif
+#endif
+
+/**
+ Swift like guard else
+
+ ````
+ guard_let (<#obj#>, <#arg#>) else {
+ <#code#>
+ }
+ ````
+
+ Strongify example:
+ ````
+ __strong guard_let (<#obj#>, <#arg#>) else {
+ return;
+ }
+ ````
+ */
+#define guard_let(obj, arg) typeof((arg)) (obj) = (arg); if (nil != (obj)) {}
+
+/**
+ Swift like if_let
+
+ ````
+ if_let (<#obj#>, <#arg#>) {
+ <#code#>
+ }
+ ````
+
+ Example with else:
+ ````
+ if_let (<#obj#>, <#arg#>) {
+ <#code#>
+ } else {
+ <#code#>
+ }
+ ````
+ */
+#define if_let(obj, arg) for(BOOL stop_if_let = NO; !stop_if_let;) for(typeof((arg)) (obj) = (arg); !stop_if_let; stop_if_let = YES) if (nil != (obj))
+
+#define STATIC_ASSERT(test, msg) typedef char _static_assert_ ## msg [ ((test) ? 1 : -1) ]
+
+#define KINDOF_CAST(arg) ((__kindof typeof(arg))(arg))
+
+#define let __auto_type const
+#define var __auto_type
+
 #endif
