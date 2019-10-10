@@ -30,5 +30,7 @@
 #import "UIViewController+iPhone_iPad_Xib.h"
 #import "UIViewController+UIViewController_Tool.h"
 #import "UIButton+NSTCategories.h"
+#import "UICollectionReusableView+NSTCategories.h"
+#import "UICollectionViewCell+NSTCategories.h"
 
 #endif /* NSTCategories_h */
