@@ -80,7 +80,27 @@ char (*__countof_helper(_CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
 
 #define KINDOF_CAST(arg) ((__kindof typeof(arg))(arg))
 
-#define let __auto_type const
-#define var __auto_type
+#ifndef let
+#if defined(__cplusplus)
+#define let auto const
+#else
+#define let const __auto_type
+#endif
+#endif
 
+#ifndef var
+#if defined(__cplusplus)
+#define var auto
+#else
+#define var __auto_type
+#endif
+#endif
+#endif
+
+#ifndef defer
+CF_INLINE void nst_cleanUpBlock(void (^*block)(void)) {
+    (*block)();
+}
+
+#define defer __attribute__((cleanup(nst_cleanUpBlock), unused)) void (^deferBlock ## __LINE__)(void) = ^(void)
 #endif
