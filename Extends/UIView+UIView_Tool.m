@@ -986,5 +986,19 @@ static const char * const kTagObjectiveKey = "kTagObjectiveKey";
     [self.layer addAnimation:both forKey:@"UIView_Tool|borderViewAnimation"];
 }
 
+- (UIUserInterfaceLayoutDirection)nst_userInterfaceLayoutDirection
+{
+    if (@available(iOS 10.0, *)) {
+        return self.effectiveUserInterfaceLayoutDirection;
+    } else if (@available(iOS 9.0, *)) {
+        return [UIView userInterfaceLayoutDirectionForSemanticContentAttribute:self.semanticContentAttribute];
+    } else {
+        let currentLocale = [NSLocale currentLocale];
+        NSLocaleLanguageDirection direction = [NSLocale characterDirectionForLanguage:[currentLocale objectForKey:NSLocaleLanguageCode]];
+        return NSLocaleLanguageDirectionRightToLeft == direction
+        ? UIUserInterfaceLayoutDirectionRightToLeft
+        : UIUserInterfaceLayoutDirectionLeftToRight;
+    }
+}
 
 @end

@@ -15,6 +15,7 @@ static NSString *kUIViewGradientColorIterations = @"kUIViewGradientColorIteratio
 
 @property (nonatomic, weak) UIViewController *parentViewController;
 @property (nonatomic, weak) id tagObjective;
+@property (readonly, nonatomic) UIUserInterfaceLayoutDirection nst_userInterfaceLayoutDirection;
 
 +(instancetype)viewWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
