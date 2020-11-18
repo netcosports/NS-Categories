@@ -103,4 +103,71 @@ CF_INLINE void nst_cleanUpBlock(void (^*block)(void)) {
 }
 
 #define defer __attribute__((cleanup(nst_cleanUpBlock), unused)) void (^deferBlock ## __LINE__)(void) = ^(void)
+
+
+///MARK: - let_weak_self and if_let_weak_self
+
+#ifndef _self_refCount_Check
+
+#ifdef DEBUG
+
+#define _self_refCount_Check() \
+    let _unowned_self_ref = (__bridge CFTypeRef)self; \
+    let _self_refCount = CFGetRetainCount(_unowned_self_ref); \
+    defer { \
+        let _refCountDelta = CFGetRetainCount(_unowned_self_ref) - _self_refCount; \
+        NSCAssert(_refCountDelta <= 0, @"self refCount is changed at %d", (int)_refCountDelta); \
+    }
+
+#else
+
+#define _self_refCount_Check() ((void)0)
+
+#endif
+#endif
+
+/**
+ Create block with weakified self
+
+ source: https://habr.com/ru/company/viber/blog/232185/
+
+ Example:
+ ````
+ ^let_weak_self(<#ARGS#>) {
+     <#body#>
+ } unlet_weak_self
+ ````
+ */
+#define let_weak_self(ARGS...) \
+(void){  __weak let _private_weakSelf = self; \
+    _self_refCount_Check(); \
+    return ^(ARGS) { \
+        __strong let self = _private_weakSelf; \
+        return ^ (void) {
+
+#define unlet_weak_self \
+        }(); \
+    }; \
+}()
+
+/**
+ Create void-block that executes if weakified self not nil
+
+ source: https://habr.com/ru/company/viber/blog/232185/
+
+ ````
+ ^if_let_weak_self(<#ARGS#>) {
+     <#body#>
+ } unlet_weak_self
+ ````
+ */
+#define if_let_weak_self(ARGS...) \
+(void){  __weak let _private_weakSelf = self; \
+    _self_refCount_Check(); \
+    return ^(ARGS) { \
+        __strong let _self_not_nil_check = _private_weakSelf; \
+        let self = _self_not_nil_check; \
+        return ^ (void) { if (nil != _self_not_nil_check)
+
+
 #endif
