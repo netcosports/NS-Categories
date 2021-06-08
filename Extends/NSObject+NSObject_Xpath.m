@@ -8,6 +8,7 @@
 
 #import "NSObject+NSObject_Xpath.h"
 #import "NSString+NSString_Tool.h"
+#import "NSUsefulDefines.h"
 
 @implementation NSObject (NSObject_Xpath)
 
@@ -174,32 +175,33 @@
 	return [[self getXpath:xpath type:[NSNumber class] def:@0] longValue];
 }
 
--(id)getXpathNil:(NSString*)xpath type:(Class)type{
-	return [self getXpath:xpath type:type def:nil];
+-(id)getXpathNil:(NSString*)xpath type:(Class)type {
+    return [type getXpath:xpath from:self];
 }
+
 -(NSString *)getXpathNilString:(NSString*)xpath{
-	return [self getXpath:xpath type:[NSString class] def:nil];
+    return [NSString getXpath:xpath from:self];
 }
 
 -(NSDictionary*)getXpathNilDictionary:(NSString*)xpath{
-	return [self getXpath:xpath type:[NSDictionary class] def:nil];
+    return [NSDictionary getXpath:xpath from:self];
 }
 
 -(NSArray*)getXpathNilArray:(NSString*)xpath{
-	return [self getXpath:xpath type:[NSArray class] def:nil];
+    return [NSArray getXpath:xpath from:self];
 }
 
 -(NSArray*)getXpathEmptyArray:(NSString*)xpath
 {
-    NSArray *arrayReturned = [self getXpath:xpath type:[NSArray class] def:nil];
-    return arrayReturned ? arrayReturned : @[];
+    return [NSArray getXpath:xpath from:self] ?: @[];
 }
 
--(BOOL)getXpathBool:(NSString*)xpath defaultValue:(BOOL)defaultValue{
-	
-    NSNumber *returnedValue = [self getXpath:xpath type:[NSNumber class] def:nil];
-    
-    return returnedValue ? [returnedValue boolValue] : defaultValue;
+-(BOOL)getXpathBool:(NSString*)xpath defaultValue:(BOOL)defaultValue
+{
+    if_let (value, [NSNumber getXpath:xpath from:self]) {
+        return value.boolValue;
+    }
+    return defaultValue;
 }
 
 
@@ -258,6 +260,12 @@
 		return [NSDictionary dictionaryWithDictionary:ar];
 	}
 	return self;
+}
+
++ (instancetype)getXpath:(NSString *)xPath from:(NSObject *)object
+{
+    NSString *rest = nil;
+    return [object getXpath:xPath type:[self class] def:nil obj:object restXpath:&rest];
 }
 
 @end

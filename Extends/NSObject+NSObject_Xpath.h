@@ -8,13 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSObject (NSObject_Xpath)
 
 -(id)getXpath:(NSString*)xpath type:(Class)type def:(id)def;
--(id)getXpathNil:(NSString*)xpath type:(Class)type;
+-(nullable id)getXpathNil:(NSString*)xpath type:(Class)type;
+
++ (nullable instancetype)getXpath:(NSString *)xPath from:(NSObject *)object;
 
 -(NSString *)getXpathEmptyString:(NSString*)xpath;
--(NSString *)getXpathNilString:(NSString*)xpath;
+-(nullable NSString *)getXpathNilString:(NSString*)xpath;
 
 -(NSString *)getXpathIntegerToString:(NSString*)xpath;
 -(NSInteger)getXpathInteger:(NSString*)xpath;
@@ -22,12 +26,14 @@
 -(long)getXpathLong:(NSString*)xpath;
 -(BOOL)getXpathBool:(NSString*)xpath defaultValue:(BOOL)defaultValue;
 
--(NSDictionary *)getXpathNilDictionary:(NSString*)xpath;
+-(nullable NSDictionary *)getXpathNilDictionary:(NSString*)xpath;
 
--(NSArray*)getXpathNilArray:(NSString*)xpath;
+-(nullable NSArray*)getXpathNilArray:(NSString*)xpath;
 -(NSArray*)getXpathEmptyArray:(NSString*)xpath;
 
 -(id)ToMutable;
 -(id)ToUnMutable;
 
 @end
+
+NS_ASSUME_NONNULL_END
