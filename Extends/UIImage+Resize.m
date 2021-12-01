@@ -64,7 +64,7 @@
     //Pop this context
     UIGraphicsEndImageContext();
     
-    return newImage;
+    return newImage.renderingMode == image.renderingMode ? newImage : [newImage imageWithRenderingMode:image.renderingMode];
 }
 
 + (UIImage *)imageWithImage:(UIImage *)image
