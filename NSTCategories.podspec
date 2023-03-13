@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "NSTCategories"
-  s.version          = "1.1.30"
+  s.version          = "1.1.31"
   s.summary          = "The open source Categories from Netco Sports"
   s.homepage         = "https://github.com/netcosports/NS-Categories"
   s.license          = 'The MIT License (MIT)'
