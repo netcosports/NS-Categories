@@ -8,7 +8,7 @@
 
 #import <Photos/Photos.h>
 #import "UIImage+UIImage_Library.h"
-#import "NSUsefulDefines.h"
+#import <NSTCategories/NSUsefulDefines.h>
 
 @implementation UIImage (UIImage_Library)
 
