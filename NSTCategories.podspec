@@ -11,10 +11,18 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Extends'
-
   s.frameworks = 'UIKit', 'Security'
   s.libraries = 'z'
   s.static_framework = true
   s.user_target_xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
+
+  s.default_subspec = 'Core'
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'Extends'
+  end
+  
+  s.subspec 'PhotoLibrary' do |photoLibrary|
+    photoLibrary.source_files = 'PHPhotoLibrary'
+  end
 end
